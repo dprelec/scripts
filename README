@@ -1,0 +1,8 @@
+Various Perl scripts. This repository is only for testing.
+
+- google-maps-geocode.pl - get google geocoding info for a given location
+- knights_tour_graph.pl - generate dot graph of knight's tour
+- proc_net_dev_stat.pl - display RX/TX traffic rate for a given network
+  interface
+
+
