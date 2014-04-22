@@ -139,14 +139,14 @@ sub put_num ($n, $cell) {
 }
 
 # main logic - iterate and backtrack
-sub solve_puzzle ($G) {
+sub solve_puzzle ($g) {
     my $ptr = -1;
-    CELL: while (my $cell = next_cell($G, \$ptr)) {
+    CELL: while (my $cell = next_cell($g, \$ptr)) {
         NUM: while (my $n = next_num($cell)) {
             put_num($n, $cell);
             cell_conf_ok($cell) and next CELL;
         }
-        $cell = prev_cell($G, \$ptr) and goto NUM;
+        $cell = prev_cell($g, \$ptr) and goto NUM;
     }
 }
 
