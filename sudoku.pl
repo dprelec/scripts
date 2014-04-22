@@ -79,27 +79,7 @@ sub is_uniq_box ($idx) {
     return is_uniq_nums(box_elems($idx));
 }
 
-# is solution ok? all elements are unique in their boxes, and along the vertical
-# and horizontal lines
-sub solution_check {
-    for my $i (0 .. $#puzzle) {
-        return unless is_uniq_box($i);
-        return unless is_uniq_cross($i);
-    }
-    return 1;
-}
-
-# print simple representation of a solution
-sub print_solution {
-    if (solution_check()) {
-        say join '', @puzzle;
-    }
-    else {
-        say "Solution ERROR!";
-    }
-}
-
-# initiate all possible states for empty cells
+# initiate all possible states for the empty cells
 sub init_generators {
     my @generators;
     my @empty_cells = grep $puzzle[$_] == 0, 0 .. $#puzzle;
@@ -122,8 +102,7 @@ sub init_generators {
 }
 
 # check if a cell configuration is OK for a given cell
-sub cell_conf_ok {
-    my $cell = shift;
+sub cell_conf_ok ($cell) {
     my $idx = $cell->{cell};
     return unless is_uniq_cross($idx);
     return unless is_uniq_box($idx);
@@ -131,8 +110,7 @@ sub cell_conf_ok {
 }
 
 # loop possible states until there are states
-sub next_num {
-    my $cell = shift; 
+sub next_num ($cell) {
     $cell->{p}++;
     return $cell->{nums}[$cell->{p}];
 }
