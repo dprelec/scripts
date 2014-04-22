@@ -2,11 +2,12 @@
 
 # sudoku.pl - backtracking brute force sudoku solver
 #
-# Implementacija obiènog brute force solvera za sudoku, koji za backtracking
-# koristi samo moguæe vrijednosti (a ne sve moguæe) generirane u
-# init_generators().
+# Implementation of a simple brute-force backtracking algorithm for solving
+# sudoku puzzles. It uses only possible values for all empty cells.
 #
 # dprelec, 2012-08-29
+
+# 2014-04-22: cleanup, removing globals
 
 # Input example:
 # 003020600900305001001806400008102900700000008006708200002609500800203009005010300
@@ -114,21 +115,21 @@ sub next_num ($cell) {
 }
 
 # increment pointer to the next cell to be inspected
-sub next_cell ($G, $ptr) {
+sub next_cell ($g, $ptr) {
     $$ptr++;
-    return $G->[$$ptr];
+    return $g->[$$ptr];
 }
 
 # decrement pointer to previous cell
-sub prev_cell ($G, $ptr) {
-    put_num(0, $G->[$$ptr]);
-    $G->[$$ptr]{p} = -1;
+sub prev_cell ($g, $ptr) {
+    put_num(0, $g->[$$ptr]);
+    $g->[$$ptr]{p} = -1;
     $$ptr--;
     if ($$ptr < 0) {
         die "ERROR: we've backtracked too far. Puzzle is not correct!\n";
     }
     else {
-        return $G->[$$ptr];
+        return $g->[$$ptr];
     }
 }
 
