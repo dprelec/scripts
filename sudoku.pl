@@ -25,10 +25,8 @@ if (@puzzle != 81) {
     die "ERROR: Invalid puzzle form!\n";
 }
 
-my $POINTER = -1;
 my @G = init_generators();
-
-solve_puzzle();
+solve_puzzle(\@G);
 draw_puzzle(join '', @puzzle);
 
 # all elements in a given 3x3 box
@@ -116,20 +114,21 @@ sub next_num ($cell) {
 }
 
 # increment pointer to the next cell to be inspected
-sub next_cell {
-    return $G[++$POINTER];
+sub next_cell ($G, $ptr) {
+    $$ptr++;
+    return $G->[$$ptr];
 }
 
 # decrement pointer to previous cell
-sub prev_cell {
-    put_num(0, $G[$POINTER]);
-    $G[$POINTER]{p} = -1;
-    $POINTER--;
-    if ($POINTER < 0) {
+sub prev_cell ($G, $ptr) {
+    put_num(0, $G->[$$ptr]);
+    $G->[$$ptr]{p} = -1;
+    $$ptr--;
+    if ($$ptr < 0) {
         die "ERROR: we've backtracked too far. Puzzle is not correct!\n";
     }
     else {
-        return $G[$POINTER];
+        return $G->[$$ptr];
     }
 }
 
@@ -140,13 +139,14 @@ sub put_num ($n, $cell) {
 }
 
 # main logic - iterate and backtrack
-sub solve_puzzle {
-    CELL: while (my $cell = next_cell()) {
+sub solve_puzzle ($G) {
+    my $ptr = -1;
+    CELL: while (my $cell = next_cell($G, \$ptr)) {
         NUM: while (my $n = next_num($cell)) {
             put_num($n, $cell);
             cell_conf_ok($cell) and next CELL;
         }
-        $cell = prev_cell() and goto NUM;
+        $cell = prev_cell($G, \$ptr) and goto NUM;
     }
 }
 
