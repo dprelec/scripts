@@ -1,8 +1,10 @@
-Various Perl scripts. This repository is only for testing.
+## Useful scripts
 
-- google-maps-geocode.pl - get google geocoding info for a given location
-- knights_tour_graph.pl - generate dot graph of knight's tour
-- proc_net_dev_stat.pl - display RX/TX traffic rate for a given network
+* google-maps-geocode.pl - get google geocoding info for a given location
+* knights_tour_graph.pl - generate dot graph of knight's tour
+* proc_net_dev_stat.pl - display RX/TX traffic rate for a given network
   interface
+* abebooks_shipping_rates.user.js - load shipping rates on AbeBooks search
+  results
 
 
