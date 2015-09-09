@@ -11,9 +11,9 @@
 
 /* CHANGELOG:
 
-   2015-08-09: fixed finding price parent in main()
-   
-*/
+ 2015-08-09: fixed finding price parent in main()
+
+ */
 
 function LoadShippingRates ($, country) {
 
@@ -60,17 +60,17 @@ function LoadShippingRates ($, country) {
           var id = RegExp.$1;
           var url = ship_rates_url(id);
           var append_price = function (res) {
-           var rate = extract_ship_rate(res);
-           var total = total_price(price, rate);
-           var conv = format_price(total * country.currency);
-           var elem = $('<div/>')
-              .attr('id', 'price_'+id)
-              .css('padding-top', '5px')
-              .html(
-                '<b>'+country.name+' rate:</b> <span class=price>' + rate + '</span>'  
-                +'<br><b>Total:</b> <span class=price>US$ ' + total + ' (' + conv + 'KN)' + '</span>'
-              );
-           $(parent).append(elem);
+            var rate = extract_ship_rate(res);
+            var total = total_price(price, rate);
+            var conv = format_price(total * country.currency);
+            var elem = $('<div/>')
+            .attr('id', 'price_'+id)
+            .css('padding-top', '5px')
+            .html(
+              '<b>'+country.name+' rate:</b> <span class=price>' + rate + '</span>'  
+              +'<br><b>Total:</b> <span class=price>US$ ' + total + ' (' + conv + 'KN)' + '</span>'
+            );
+            $(parent).append(elem);
           };
           $.get(url).done(append_price);
         }
